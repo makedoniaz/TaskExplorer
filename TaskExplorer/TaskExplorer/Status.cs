@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskExplorer
+namespace StatusEnum;
+
+public enum STATUS
 {
-    internal class Status
-    {
-    }
+    Waiting,
+    InProcess,
+    Done,
 }

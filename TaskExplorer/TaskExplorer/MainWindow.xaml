@@ -16,6 +16,9 @@
             <Button Width="50"/>
             <Button Width="50"/>
         </StackPanel>
-        <Button/>
+        <ListView x:Name="TasksList"
+                  ItemsSource="{Binding Tasks}">
+            
+        </ListView>
     </DockPanel>
 </Window>
