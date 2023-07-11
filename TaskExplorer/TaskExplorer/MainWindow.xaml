@@ -5,20 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskExplorer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="450">
+        Title="MainWindow" Height="400" Width="800" ResizeMode="NoResize">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" 
                     Orientation="Horizontal" 
                     Height="40">
-            <Button Width="50"/>
+            <Button Width="50" Click="AddButton_Click"/>
             <Button Width="50"/>
             <Button Width="50"/>
             <Button Width="50"/>
             <Button Width="50"/>
         </StackPanel>
-        <ListView x:Name="TasksList"
-                  ItemsSource="{Binding Tasks}">
+
+        <DockPanel>
+            <Grid DockPanel.Dock ="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="155"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" TextAlignment="Center" Text="Text"/>
+                <TextBlock Grid.Column="1" TextAlignment="Center" Text="Status"/>
+                <TextBlock Grid.Column="2" TextAlignment="Center" Text="Creation Date"/>
+                <TextBlock Grid.Column="3" TextAlignment="Center" Text="Select"/>
+            </Grid>
             
-        </ListView>
+            <ListView ItemsSource="{Binding Tasks}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Grid.Column="0" TextAlignment="Center" Text="{Binding Text}"/>
+                        <TextBlock Grid.Column="1" TextAlignment="Center" Text="{Binding Status}"/>
+                        <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding CreationDate}"/>
+                        <CheckBox HorizontalAlignment="Center" Grid.Column="3"/>
+
+
+                    </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        
+        </DockPanel>
     </DockPanel>
 </Window>
