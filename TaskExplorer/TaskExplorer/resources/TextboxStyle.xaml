@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="TextBox">
+        <Style.Setters>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+</ResourceDictionary>

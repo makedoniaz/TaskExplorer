@@ -6,15 +6,27 @@
         xmlns:local="clr-namespace:TaskExplorer"
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="800" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="resources/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="resources/TextboxStyle.xaml"/>
+                <ResourceDictionary Source="resources/ListViewItemStyle.xaml"/>
+                <ResourceDictionary Source="resources/ListViewStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" 
                     Orientation="Horizontal" 
                     Height="40">
-            <Button Width="50" Click="AddButton_Click"/>
-            <Button Width="50"/>
-            <Button Width="50"/>
-            <Button Width="50"/>
-            <Button Width="50"/>
+            <Button Content="Add Task" Click="AddButton_Click"/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
         </StackPanel>
 
         <DockPanel>
@@ -23,16 +35,16 @@
                     <ColumnDefinition Width="155"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Grid.Column="0" TextAlignment="Center" Text="Text"/>
-                <TextBlock Grid.Column="1" TextAlignment="Center" Text="Status"/>
-                <TextBlock Grid.Column="2" TextAlignment="Center" Text="Creation Date"/>
-                <TextBlock Grid.Column="3" TextAlignment="Center" Text="Select"/>
+                <TextBlock Grid.Column="0" Text="Text"/>
+                <TextBlock Grid.Column="1" Text="Status"/>
+                <TextBlock Grid.Column="2" Text="Creation Date"/>
             </Grid>
-            
-            <ListView ItemsSource="{Binding Tasks}">
+
+            <ListView ItemsSource="{Binding Tasks}"
+                      SelectedItem="{Binding SelectedItem}"
+                      MouseDoubleClick="SelectTask_Click">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -41,20 +53,16 @@
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
 
 
-                        <TextBlock Grid.Column="0" TextAlignment="Center" Text="{Binding Text}"/>
-                        <TextBlock Grid.Column="1" TextAlignment="Center" Text="{Binding Status}"/>
-                        <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding CreationDate}"/>
-                        <CheckBox HorizontalAlignment="Center" Grid.Column="3"/>
-
-
+                        <TextBlock Grid.Column="0" Text="{Binding Text}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Status}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding CreationDate}"/>
                     </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         
         </DockPanel>
     </DockPanel>

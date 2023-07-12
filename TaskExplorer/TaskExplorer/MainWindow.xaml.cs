@@ -5,6 +5,8 @@ using System.Windows;
 using TaskClass;
 using StatusEnum;
 using System;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace TaskExplorer;
 
@@ -14,8 +16,15 @@ namespace TaskExplorer;
 public partial class MainWindow : Window
 {
     public ObservableCollection<Task>? Tasks { get; set; }
-
     private readonly string path = "assets\\tasks.json";
+
+    private Task selectedItem;
+
+    public Task SelectedItem
+    {
+        get { return selectedItem; }
+        set { selectedItem = value; }
+    }
 
     public MainWindow()
     {
@@ -34,8 +43,22 @@ public partial class MainWindow : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-
-        this.Tasks?.Add(new Task("ABOBAAFDASGASDGADSGASD", STATUS.InProcess, DateTime.Now.ToShortDateString()));
-        // Console.WriteLine(Tasks.Count);
+        if (sender is Button addButton)
+        {
+            this.Tasks?.Add(new Task("abbb", STATUS.Todo, DateTime.Now.ToShortDateString()));
+        }
     }
+
+    private void SelectTask_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is ListView listView)
+        {
+            if(listView.SelectedItem is Task task)
+            {
+                task.IsSelected = true;
+            }
+        }
+    }
+
+
 }

@@ -45,11 +45,15 @@ public class Task
 		set { creationDate = value; }
 	}
 
+	public bool IsSelected { get; set; }
+
 	public Task(string text, STATUS status, string creationDate)
     {
         Text = text;
         Status = status;
         CreationDate = creationDate;
     }
+
+
     public override string ToString() => $"{Text} - {Status} - {creationDate}";
 }

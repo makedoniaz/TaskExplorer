@@ -8,7 +8,7 @@ namespace StatusEnum;
 
 public enum STATUS
 {
-    Waiting,
-    InProcess,
+    Todo,
+    InProgress,
     Done,
 }
