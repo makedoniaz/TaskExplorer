@@ -7,23 +7,29 @@ using StatusEnum;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace TaskExplorer;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : Window, INotifyPropertyChanged
 {
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public ObservableCollection<Task>? Tasks { get; set; }
     private readonly string path = "assets\\tasks.json";
 
-    private Task selectedItem;
+    private int selectedIndex;
 
-    public Task SelectedItem
+    private int SelectedIndex
     {
-        get { return selectedItem; }
-        set { selectedItem = value; }
+        get => selectedIndex;
+        set => this.PropertyChangeMethod(out selectedIndex, value);
     }
 
     public MainWindow()
@@ -37,8 +43,15 @@ public partial class MainWindow : Window
             Tasks = new ObservableCollection<Task>();
         else
             Tasks = JsonSerializer.Deserialize<ObservableCollection<Task>>(json);
-        
-        //Console.WriteLine(tasks == null);
+    }
+    protected void PropertyChangeMethod<T>(out T field, T value, [CallerMemberName] string propName = "")
+    {
+        field = value;
+
+        if (this.PropertyChanged != null)
+        {
+            this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -53,9 +66,16 @@ public partial class MainWindow : Window
     {
         if (sender is ListView listView)
         {
-            if(listView.SelectedItem is Task task)
+            //Console.WriteLine(SelectedIndex);
+            if (listView.SelectedItem is ListViewItem item)
             {
-                task.IsSelected = true;
+                //item.IsEnabled.
+
+                //Task newTask = new Task(task.Text, task.Status, task.CreationDate);
+                //newTask.IsSelected = true;
+                //task = newTask;
+                //task.IsSelected = true;
+                //Console.WriteLine(task.IsSelected);
             }
         }
     }

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Xml.Linq;
 using StatusEnum;
 
 namespace TaskClass;
@@ -45,7 +39,7 @@ public class Task
 		set { creationDate = value; }
 	}
 
-	public bool IsSelected { get; set; }
+	public bool IsSelected { get; set; } = false;
 
 	public Task(string text, STATUS status, string creationDate)
     {

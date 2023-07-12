@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="resources/ButtonStyle.xaml"/>
-                <ResourceDictionary Source="resources/TextboxStyle.xaml"/>
+                <ResourceDictionary Source="resources/TextblockStyle.xaml"/>
                 <ResourceDictionary Source="resources/ListViewItemStyle.xaml"/>
                 <ResourceDictionary Source="resources/ListViewStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -22,7 +22,7 @@
         <StackPanel DockPanel.Dock="Top" 
                     Orientation="Horizontal" 
                     Height="40">
-            <Button Content="Add Task" Click="AddButton_Click"/>
+            <Button Content="Add" Click="AddButton_Click"/>
             <Button/>
             <Button/>
             <Button/>
@@ -43,7 +43,7 @@
             </Grid>
 
             <ListView ItemsSource="{Binding Tasks}"
-                      SelectedItem="{Binding SelectedItem}"
+                      SelectedIndex ="{Binding SelectedIndex}"
                       MouseDoubleClick="SelectTask_Click">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -53,12 +53,14 @@
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
 
 
                         <TextBlock Grid.Column="0" Text="{Binding Text}"/>
                         <TextBlock Grid.Column="1" Text="{Binding Status}"/>
                         <TextBlock Grid.Column="2" Text="{Binding CreationDate}"/>
+                        <CheckBox Grid.Column="3" IsChecked="{Binding IsSelected}" IsEnabled="False"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

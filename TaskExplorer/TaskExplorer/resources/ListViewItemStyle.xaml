@@ -1,15 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style TargetType="ListViewItem">
-        <Style.Setters>
-            <Setter Property="IsEnabled" Value="{Binding isSelected}"/>
-        </Style.Setters>
-        
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Foreground" Value="DarkBlue"/>
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property= "Foreground" Value="{Binding SelectedColor}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
