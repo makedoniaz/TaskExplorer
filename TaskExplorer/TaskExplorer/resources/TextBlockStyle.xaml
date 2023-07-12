@@ -3,6 +3,7 @@
     <Style TargetType="TextBlock">
         <Style.Setters>
             <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="7 0 0 0"/>
         </Style.Setters>
     </Style>
 </ResourceDictionary>

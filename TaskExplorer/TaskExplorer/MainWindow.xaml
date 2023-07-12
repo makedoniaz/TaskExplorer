@@ -30,42 +30,53 @@
         </StackPanel>
 
         <DockPanel>
-            <Grid DockPanel.Dock ="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="155"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-                
-                <TextBlock Grid.Column="0" Text="Text"/>
-                <TextBlock Grid.Column="1" Text="Status"/>
-                <TextBlock Grid.Column="2" Text="Creation Date"/>
-            </Grid>
 
-            <ListView ItemsSource="{Binding Tasks}"
-                      SelectedIndex ="{Binding SelectedIndex}"
-                      MouseDoubleClick="SelectTask_Click">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
+            <StackPanel DockPanel.Dock ="Top" 
+                    Orientation="Horizontal"
+                        >
+                <!--Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+
+                </Grid.ColumnDefinitions>-->
+
+            <TextBlock Margin="0 0 145 0" Text="Name"/>
+            <TextBlock Margin="0 0 50 0" Text="Status"/>
+            <TextBlock Margin="0 0 100 0" Text="Creation Date"/>
+        </StackPanel>
+
+
+            <ListView Width="500"
+                DockPanel.Dock= "Left"
+                ItemsSource="{Binding Tasks}"
+                SelectedIndex ="{Binding SelectedIndex}"
+                MouseDoubleClick="SelectTask_Click">
+                    <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="115"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
 
 
-                        <TextBlock Grid.Column="0" Text="{Binding Text}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Status}"/>
-                        <TextBlock Grid.Column="2" Text="{Binding CreationDate}"/>
-                        <CheckBox Grid.Column="3" IsChecked="{Binding IsSelected}" IsEnabled="False"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
+                            <TextBlock Grid.Column="0" Text="{Binding Text}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Status}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding CreationDate}"/>
+                            <CheckBox Grid.Column="3" IsChecked="{Binding IsSelected}" IsEnabled="False"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <RichTextBox/>
+
+
+
         </DockPanel>
     </DockPanel>
 </Window>

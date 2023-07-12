@@ -58,7 +58,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         if (sender is Button addButton)
         {
-            this.Tasks?.Add(new Task("abbb", STATUS.Todo, DateTime.Now.ToShortDateString()));
+            this.Tasks?.Add(new Task("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", STATUS.Done, DateTime.Now.ToShortDateString()));
         }
     }
 
@@ -66,16 +66,10 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         if (sender is ListView listView)
         {
-            //Console.WriteLine(SelectedIndex);
-            if (listView.SelectedItem is ListViewItem item)
+            if (listView.SelectedItem is Task task)
             {
-                //item.IsEnabled.
-
-                //Task newTask = new Task(task.Text, task.Status, task.CreationDate);
-                //newTask.IsSelected = true;
-                //task = newTask;
-                //task.IsSelected = true;
-                //Console.WriteLine(task.IsSelected);
+                task.IsSelected = true;
+                //checkbox_a.IsChecked = true;
             }
         }
     }
