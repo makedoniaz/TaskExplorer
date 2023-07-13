@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Linq;
+using TaskExplorer.views;
 
 namespace TaskExplorer;
 
@@ -46,11 +47,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void AddButton_Click(object sender, RoutedEventArgs e)
+    private void OpenAddWindow_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button addButton)
         {
-            this.Tasks?.Add(new Task("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", STATUS.Done, DateTime.Now.ToShortDateString()));
+            new AddWindow(this.Tasks).ShowDialog();
         }
     }
 

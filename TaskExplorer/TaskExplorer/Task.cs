@@ -13,6 +13,7 @@ public class Task : INotifyPropertyChanged
 	private string text;
 	private STATUS status;
 	private string creationDate;
+
 	private bool isSelected;
 
 	public string Name

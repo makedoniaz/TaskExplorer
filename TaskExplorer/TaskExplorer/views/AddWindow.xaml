@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskExplorer.views"
         mc:Ignorable="d"
-        Title="AddWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="AddWindow" Height="400" Width="300">
+    <DockPanel>
+
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    Height="40"
+                    HorizontalAlignment="Right">
+            <Button Width="50" FontSize="13" Margin="5" Content="Add" Click ="AddButton_Click"/>
+            <Button Width="50" FontSize="13" Margin="5" Content="Cancel" Click ="CancelButton_Click"/>
+        </StackPanel>
+
+        <StackPanel Margin="8">
+            <Label Content="Name"/>
+            <TextBox Text="{Binding InputTaskName}"/>
+            <Label Content="Text"/>
+            <RichTextBox Height="150"/>
+            <Label Content="Status"/>
+            <ComboBox ItemsSource = "{Binding Statuses}"/>
+        </StackPanel>
+
+    </DockPanel>
 </Window>

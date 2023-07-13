@@ -22,7 +22,7 @@
         <StackPanel DockPanel.Dock="Top" 
                     Orientation="Horizontal" 
                     Height="40">
-            <Button Content="Add" Click="AddButton_Click"/>
+            <Button Content="Add" Click="OpenAddWindow_Click"/>
             <Button/>
             <Button/>
             <Button/>
@@ -32,16 +32,9 @@
         <DockPanel>
 
             <StackPanel DockPanel.Dock ="Top" 
-                    Orientation="Horizontal"
-                        >
-                <!--Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
+                    Orientation="Horizontal">
 
-                </Grid.ColumnDefinitions>-->
-
-            <TextBlock Margin="0 0 145 0" Text="Name"/>
+                <TextBlock Margin="0 0 145 0" Text="Name"/>
             <TextBlock Margin="0 0 50 0" Text="Status"/>
             <TextBlock Margin="0 0 100 0" Text="Creation Date"/>
         </StackPanel>
