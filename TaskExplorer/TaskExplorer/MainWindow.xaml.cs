@@ -24,14 +24,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     public ObservableCollection<Task>? Tasks { get; set; }
     private readonly string path = "assets\\tasks.json";
 
-    private int selectedIndex;
-
-    private int SelectedIndex
-    {
-        get => selectedIndex;
-        set => this.PropertyChangeMethod(out selectedIndex, value);
-    }
-
     public MainWindow()
     {
         InitializeComponent();
@@ -68,8 +60,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             if (listView.SelectedItem is Task task)
             {
-                task.IsSelected = true;
-                //checkbox_a.IsChecked = true;
+                task.IsSelected = !task.IsSelected;
             }
         }
     }
