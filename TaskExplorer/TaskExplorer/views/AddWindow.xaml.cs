@@ -6,7 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
-using StatusEnum;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using TaskExplorer.models;
 
 namespace TaskExplorer.views;
@@ -33,7 +34,6 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         }
     }
 
-
     public string? InputTaskText
     {
         get => inputTaskText;
@@ -52,18 +52,17 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         set => inputTaskStatus = value;
     }
 
-
     public AddWindow()
     {
         InitializeComponent();
 
+        this.DataContext = this;
+
         Statuses.Add(STATUS.Todo);
         Statuses.Add(STATUS.InProgress);
-
-        this.DataContext = this;
     }
 
-    public AddWindow(ObservableCollection<Task>? tasks) : this()
+    public AddWindow(ObservableCollection<Task> tasks) : this()
     {
         this.tasks = tasks;
     }
@@ -80,14 +79,17 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        //tasks.Add(new Task(,DateTime.Now));
+        string inputTaskText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
+        this.tasks?.Add(new Task(name: inputTaskName, text: inputTaskText, status: inputTaskStatus));
+
         this.Close();
     }
 
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => this.Close();
+
+    string ConvertRichTextBoxContentsToString(RichTextBox richTextBox)
     {
-
-        this.Close();
+        TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+        return textRange.Text;
     }
-
 }

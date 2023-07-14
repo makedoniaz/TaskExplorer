@@ -3,7 +3,7 @@
     <Style TargetType="ListViewItem">
         <Style.Setters>
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0" />
+            <Setter Property="Height" Value="20"/>
         </Style.Setters>
         
         

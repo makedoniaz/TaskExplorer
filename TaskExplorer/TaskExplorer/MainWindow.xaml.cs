@@ -2,15 +2,15 @@
 using System.IO;
 using System.Text.Json;
 using System.Windows;
-using TaskExplorer.models;
-using StatusEnum;
-using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Linq;
+
+using TaskExplorer.models;
 using TaskExplorer.views;
+using System;
 
 namespace TaskExplorer;
 
@@ -22,21 +22,28 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<Task>? Tasks { get; set; }
-    private readonly string path = "assets\\tasks.json";
+    public ObservableCollection<Task> Tasks { get; set; }
+    private static readonly string path = "assets\\tasks.json";
 
     public MainWindow()
     {
         InitializeComponent();
         this.DataContext = this;
 
-        string json = File.ReadAllText(path);
+        Tasks = new ObservableCollection<Task>();
 
-        if (string.IsNullOrWhiteSpace(json))
-            Tasks = new ObservableCollection<Task>();
-        else
-            Tasks = JsonSerializer.Deserialize<ObservableCollection<Task>>(json);
+        //if (File.Exists(path))
+        //{
+        //    string json = File.ReadAllText(path);
+        //    Tasks = JsonSerializer.Deserialize<ObservableCollection<Task>>(json);
+        //}
+        //else
+        //{
+        //    File.Create(path);
+        //    Tasks = new ObservableCollection<Task>();
+        //}
     }
+
     protected void PropertyChangeMethod<T>(out T field, T value, [CallerMemberName] string propName = "")
     {
         field = value;
@@ -50,9 +57,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private void OpenAddWindow_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button addButton)
-        {
             new AddWindow(this.Tasks).ShowDialog();
-        }
     }
 
     private void SelectTask_Click(object sender, RoutedEventArgs e)

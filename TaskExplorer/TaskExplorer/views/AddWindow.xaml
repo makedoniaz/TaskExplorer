@@ -19,8 +19,10 @@
         <StackPanel Margin="8">
             <Label Content="Name"/>
             <TextBox Text="{Binding InputTaskName}"/>
+            
             <Label Content="Text"/>
-            <RichTextBox Height="150"/>
+            <RichTextBox x:Name="TaskRichTextBox" Height="150"/>
+            
             <Label Content="Status"/>
             <ComboBox ItemsSource = "{Binding Statuses}"/>
         </StackPanel>

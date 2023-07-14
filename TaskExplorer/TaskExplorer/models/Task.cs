@@ -16,6 +16,8 @@ public class Task : INotifyPropertyChanged
     private STATUS status;
     private DateTime creationDate;
 
+    private string? creationDateStr;
+
     private bool isSelected;
 
     public string? Name
@@ -53,18 +55,25 @@ public class Task : INotifyPropertyChanged
         set { this.PropertyChangeMethod(out creationDate, value); }
     }
 
+    public string? CreationDateStr
+    {
+        get => creationDateStr;
+        set { this.PropertyChangeMethod(out creationDateStr, value); }
+    }
+
     public bool IsSelected
     {
         get => isSelected;
         set { this.PropertyChangeMethod(out isSelected, value); }
     }
 
-    public Task(string name, string text, STATUS status)
+    public Task(string? name, string? text, STATUS status)
     {
         Name = name;
         Text = text;
         Status = status;
         CreationDate = DateTime.Now;
+        CreationDateStr = CreationDate.ToShortDateString();
     }
 
     protected void PropertyChangeMethod<T>(out T field, T value, [CallerMemberName] string propName = "")
@@ -75,5 +84,5 @@ public class Task : INotifyPropertyChanged
             this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 
-    //public override string ToString() => $"{Text} - {Status} - {creationDate}";
+    public override string ToString() => $"{Text} - {Status} - {creationDate}";
 }
