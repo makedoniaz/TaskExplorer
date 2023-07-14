@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using StatusEnum;
-using TaskClass;
+using TaskExplorer.models;
 
 namespace TaskExplorer.views;
 
@@ -59,7 +59,6 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 
         Statuses.Add(STATUS.Todo);
         Statuses.Add(STATUS.InProgress);
-        Statuses.Add(STATUS.Done);
 
         this.DataContext = this;
     }
@@ -81,7 +80,7 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-
+        //tasks.Add(new Task(,DateTime.Now));
         this.Close();
     }
 
