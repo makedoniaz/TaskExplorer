@@ -26,16 +26,19 @@
                     Orientation="Horizontal"
                     Height="40">
 
-            <Button ToolTip = "Add task" Click = "OpenAddWindow_Click">
+            <Button ToolTip = "Add tasks" Click = "OpenAddWindow_Click">
                 <Image Source="images/add_img.png"/>
             </Button>
             
-            <Button ToolTip = "Delete task" Click = "DeleteButton_Click">
+            <Button ToolTip = "Delete tasks" Click = "DeleteButton_Click">
                 <Image Source="images/delete_img.png"/>
             </Button>
-            <Button ToolTip = "Finish task" Click = "FinishButton_Click">
+            <Button ToolTip = "Finish tasks" Click = "FinishButton_Click">
                 <Image Source="images/finished_img.png"/>
             </Button>
+
+            <Label Foreground = "Gray" FontSize ="13" Margin="20 0 0 0"  Content="Select all finished tasks"/>
+            <CheckBox Click="SelectFinished_IsEnabledChanged" Margin="0 8 0 0"/>
         </StackPanel>
 
         <DockPanel>

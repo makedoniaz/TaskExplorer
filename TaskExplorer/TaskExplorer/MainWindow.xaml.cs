@@ -11,6 +11,7 @@ using System.Linq;
 using TaskExplorer.models;
 using TaskExplorer.views;
 using System;
+using System.Collections.Generic;
 
 namespace TaskExplorer;
 
@@ -24,6 +25,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     public ObservableCollection<Task>? Tasks { get; set; }
     private static readonly string path = "json\\tasks.json";
+
+    public bool IsSelectAllFinished { get; set; } = false;
 
     public MainWindow()
     {
@@ -99,13 +102,15 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         if (sender is Button finishButton)
         {
-            Task? currentTask = Tasks?.FirstOrDefault(task => task.IsSelected);
+            IEnumerable<Task>? currentTasks = Tasks?.Where(task => task.IsSelected);
 
-            while (currentTask != null)
+            if (currentTasks == null)
+                return;
+
+            foreach (var task in currentTasks)
             {
-                currentTask.Status = STATUS.Done;
-                currentTask.IsSelected = false;
-                currentTask = Tasks?.FirstOrDefault(task => task.IsSelected);
+                task.Status = STATUS.Done;
+                task.IsSelected = IsSelectAllFinished;
             }
         }
     }
@@ -131,7 +136,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void ChangeContent_RichTextBox(RichTextBox textBox, string? text)
     {
-
         if (textBox == null || text == null)
             return;
         
@@ -139,4 +143,20 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         textBox.AppendText(text);
     }
 
+    private void SelectFinished_IsEnabledChanged(object sender, RoutedEventArgs e)
+    {
+
+        if (sender is CheckBox checkbox)
+        {
+            IsSelectAllFinished = !IsSelectAllFinished;
+
+            IEnumerable<Task>? currentTasks = Tasks?.Where(task => task.Status == STATUS.Done);
+
+            if (currentTasks == null)
+                return;
+
+            foreach(var task in currentTasks)
+                task.IsSelected = IsSelectAllFinished;
+        }
+    }
 }
