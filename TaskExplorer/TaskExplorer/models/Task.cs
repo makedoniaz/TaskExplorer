@@ -14,8 +14,8 @@ public class Task : INotifyPropertyChanged
     private string? name;
     private string? text;
     private STATUS status;
-    private DateTime creationDate;
 
+    private DateTime creationDate;
     private string? creationDateStr;
 
     private bool isSelected;

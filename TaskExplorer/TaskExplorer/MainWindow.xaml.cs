@@ -32,6 +32,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
         Tasks = new ObservableCollection<Task>();
 
+        this.TaskContentRichTextBox.IsEnabled = false;
+
         //if (File.Exists(path))
         //{
         //    string json = File.ReadAllText(path);
@@ -71,5 +73,23 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
+    private void ChangeContent_RichTextBox(RichTextBox textBox, string? text)
+    {
+        if (textBox == null || text == null)
+            return;
 
+        textBox.Document.Blocks.Clear();
+        textBox.AppendText(text);
+    }
+
+    private void Task_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (sender is ListView listView)
+        {
+            if (listView.SelectedItem is Task task)
+            {
+                ChangeContent_RichTextBox(TaskContentRichTextBox, task.Text);
+            }
+        }
+    }
 }
