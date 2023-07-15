@@ -26,13 +26,14 @@
                     Orientation="Horizontal"
                     Height="40">
 
-            <Button Click = "OpenAddWindow_Click">
+            <Button ToolTip = "Add task" Click = "OpenAddWindow_Click">
                 <Image Source="images/add_img.png"/>
             </Button>
-            <Button Click = "DeleteButton_Click">
+            
+            <Button ToolTip = "Delete task" Click = "DeleteButton_Click">
                 <Image Source="images/delete_img.png"/>
             </Button>
-            <Button Click = "FinishButton_Click">
+            <Button ToolTip = "Finish task" Click = "FinishButton_Click">
                 <Image Source="images/finished_img.png"/>
             </Button>
         </StackPanel>
