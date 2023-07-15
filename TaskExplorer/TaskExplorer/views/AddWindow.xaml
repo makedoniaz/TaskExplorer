@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskExplorer.views"
         mc:Ignorable="d"
-        Title="AddWindow" Height="420" Width="300" ResizeMode="NoResize">
+        Title="Add Task" Height="420" Width="300" ResizeMode="NoResize">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -17,27 +17,25 @@
     </Window.Resources>
 
     <DockPanel>
-
         <StackPanel DockPanel.Dock="Bottom"
                     Orientation="Horizontal"
                     Height="40"
                     HorizontalAlignment="Right">
-            <Button Width="50" FontSize="13" Margin="5" Content="Add" Click ="AddButton_Click" IsEnabled="{Binding CanAdd}"/>
-            <Button Width="50" FontSize="13" Margin="5" Content="Cancel" Click ="CancelButton_Click"/>
+            <Button Style="{StaticResource AddWindow_Button}" Margin="5" Content="Add" Click ="AddButton_Click" IsEnabled="{Binding CanAdd}"/>
+            <Button Style="{StaticResource AddWindow_Button}" Content="Cancel" Click ="CancelButton_Click"/>
         </StackPanel>
 
         <StackPanel Margin="8">
             <Label Content="Name"/>
             <TextBox x:Name ="NameInputTextBox" TextChanged="NameInputChanged"/>
-            <Label FontSize="10" Foreground="Red" Content ="{Binding TaskNameInputMessage}"/>
+            <Label Style="{StaticResource ErrorLabel}" Content ="{Binding TaskNameInputMessage}"/>
 
             <Label Content="Text"/>
             <RichTextBox x:Name="TaskRichTextBox" Height="150" TextChanged="TextInputChanged"/>
-            <Label FontSize= "10" Foreground="Red" Content ="{Binding TaskTextInputMessage}"/>
+            <Label Style="{StaticResource ErrorLabel}" Content ="{Binding TaskTextInputMessage}"/>
 
             <Label Content="Status"/>
             <ComboBox SelectedItem="{Binding TaskInputStatus}" ItemsSource = "{Binding Statuses}"/>
         </StackPanel>
-
     </DockPanel>
 </Window>

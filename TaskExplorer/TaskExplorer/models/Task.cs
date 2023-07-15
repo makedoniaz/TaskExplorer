@@ -34,34 +34,32 @@ public class Task : INotifyPropertyChanged
     public string? Text
     {
         get => text;
-        set
-        {
-            this.PropertyChangeMethod(out text, value);
-        }
+        set => this.PropertyChangeMethod(out text, value);
+
     }
 
     public STATUS Status
     {
         get => status;
-        set { this.PropertyChangeMethod(out status, value); }
+        set => this.PropertyChangeMethod(out status, value);
     }
 
     public DateTime CreationDate
     {
         get => creationDate;
-        set { this.PropertyChangeMethod(out creationDate, value); }
+        set => this.PropertyChangeMethod(out creationDate, value);
     }
 
     public string? CreationDateStr
     {
         get => creationDateStr;
-        set { this.PropertyChangeMethod(out creationDateStr, value); }
+        set => this.PropertyChangeMethod(out creationDateStr, value);
     }
 
     public bool IsSelected
     {
         get => isSelected;
-        set { this.PropertyChangeMethod(out isSelected, value); }
+        set => this.PropertyChangeMethod(out isSelected, value);
     }
 
     public Task(string? name, string? text, STATUS status)
@@ -81,5 +79,5 @@ public class Task : INotifyPropertyChanged
             this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 
-    public override string ToString() => $"{Name} - {Status} - {CreationDate}";
+    public override string ToString() => $"{Name} - {Status} - {CreationDate} - {isSelected}";
 }

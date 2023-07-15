@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskExplorer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="800" ResizeMode="NoResize">
+        Title="Task Explorer" Height="400" Width="800" ResizeMode="NoResize">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -19,14 +19,10 @@
         </ResourceDictionary>
     </Window.Resources>
     
-    
-    
-    
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" 
                     Orientation="Horizontal"
                     Height="40">
-
             <Button ToolTip = "Add tasks" Click = "OpenAddWindow_Click">
                 <Image Source="images/add_img.png"/>
             </Button>
@@ -45,13 +41,11 @@
         <DockPanel>
 
         <StackPanel DockPanel.Dock ="Top" 
-                    Orientation="Horizontal">
-
-            <TextBlock Margin="60 0 87 0" Text="Name"/>
+            Orientation="Horizontal">
+                <TextBlock Margin="60 0 87 0" Text="Name"/>
             <TextBlock Margin="0 0 50 0" Text="Status"/>
             <TextBlock Margin="0 0 100 0" Text="Creation Date"/>
         </StackPanel>
-
 
             <ListView Width="500"
                 DockPanel.Dock= "Left"
@@ -62,14 +56,12 @@
                     <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="115"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-
 
                             <TextBlock Grid.Column="0" Text="{Binding Name}"/>
                             <TextBlock Grid.Column="1" Text="{Binding Status}"/>
@@ -81,8 +73,6 @@
             </ListView>
 
             <RichTextBox x:Name ="TaskContentRichTextBox"/>
-
-
 
         </DockPanel>
     </DockPanel>

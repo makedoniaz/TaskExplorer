@@ -67,9 +67,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         if (sender is ListView listView)
         {
             if (listView.SelectedItem is Task task)
-            {
                 task.IsSelected = !task.IsSelected;
-            }
         }
     }
 
@@ -92,9 +90,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         if (sender is ListView listView)
         {
             if (listView.SelectedItem is Task task)
-            {
                 ChangeContent_RichTextBox(TaskContentRichTextBox, task.Text);
-            }
         }
     }
 
@@ -102,19 +98,37 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         if (sender is Button finishButton)
         {
-            IEnumerable<Task>? currentTasks = Tasks?.Where(task => task.IsSelected);
-
-            if (currentTasks == null)
-                return;
-
-            foreach (var task in currentTasks)
-            {
+            var action = new Action<Task>(task => {
                 task.Status = STATUS.Done;
                 task.IsSelected = IsSelectAllFinished;
-            }
+            });
+            var predicate = new Func<Task, bool>(task => task.IsSelected);
+            TaskChanger(Tasks, action, predicate);
         }
     }
 
+    private void SelectFinished_IsEnabledChanged(object sender, RoutedEventArgs e)
+    {
+        if (sender is CheckBox checkbox)
+        {
+            IsSelectAllFinished = !IsSelectAllFinished;
+
+            var action = new Action<Task>(task => task.IsSelected = IsSelectAllFinished);
+            var predicate = new Func<Task, bool>(task => task.Status == STATUS.Done);
+            TaskChanger(Tasks, action, predicate);
+        }
+    }
+
+    private void TaskChanger(IEnumerable<Task>? tasks, Action<Task> action, Func<Task, bool> predicate)
+    {
+        IEnumerable<Task>? currentTasks = Tasks?.Where(predicate);
+
+        if (currentTasks == null)
+            return;
+
+        foreach (var task in currentTasks)
+            action.Invoke(task);
+    }
 
     private void LoadTasks(string path)
     {
@@ -141,22 +155,5 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         
         textBox.Document.Blocks.Clear();
         textBox.AppendText(text);
-    }
-
-    private void SelectFinished_IsEnabledChanged(object sender, RoutedEventArgs e)
-    {
-
-        if (sender is CheckBox checkbox)
-        {
-            IsSelectAllFinished = !IsSelectAllFinished;
-
-            IEnumerable<Task>? currentTasks = Tasks?.Where(task => task.Status == STATUS.Done);
-
-            if (currentTasks == null)
-                return;
-
-            foreach(var task in currentTasks)
-                task.IsSelected = IsSelectAllFinished;
-        }
     }
 }

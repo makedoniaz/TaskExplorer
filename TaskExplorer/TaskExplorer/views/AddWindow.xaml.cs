@@ -32,7 +32,6 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         set => taskInputStatus = value;
     }
 
-
     public string? TaskNameInputMessage
     {
         get => taskNameInputMessage;
@@ -55,6 +54,7 @@ public partial class AddWindow : Window, INotifyPropertyChanged
             PropertyChangeMethod(out taskTextInputMessage, value);
         }
     }
+
     public bool CanAdd
     {
         get => canAdd;
