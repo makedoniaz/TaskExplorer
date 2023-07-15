@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskExplorer.views"
         mc:Ignorable="d"
-        Title="AddWindow" Height="400" Width="300">
+        Title="AddWindow" Height="420" Width="300" ResizeMode="NoResize">
     <DockPanel>
 
         <StackPanel DockPanel.Dock="Bottom"
@@ -23,7 +23,7 @@
 
             <Label Content="Text"/>
             <RichTextBox x:Name="TaskRichTextBox" Height="150" TextChanged="TextInputChanged"/>
-            <Label Foreground="Red" Content ="{Binding TaskTextInputMessage}"/>
+            <Label FontSize= "10" Foreground="Red" Content ="{Binding TaskTextInputMessage}"/>
 
             <Label Content="Status"/>
             <ComboBox SelectedItem="{Binding TaskInputStatus}" ItemsSource = "{Binding Statuses}"/>

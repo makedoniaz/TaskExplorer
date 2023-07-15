@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+
 using TaskExplorer.models;
 
 namespace TaskExplorer.views;
@@ -77,7 +73,7 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 
     public AddWindow(ObservableCollection<Task>? tasks) : this()
     {
-        this.CanAdd = true;
+        this.CanAdd = false;
         this.tasks = tasks;
     }
 
@@ -93,7 +89,6 @@ public partial class AddWindow : Window, INotifyPropertyChanged
     {
         string taskInputText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
         this.tasks?.Add(new Task(name: this.NameInputTextBox.Text, text: taskInputText, status: TaskInputStatus));
-        Console.WriteLine("Aaa");
 
         this.Close();
     }
@@ -109,30 +104,47 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 
     private void NameInputChanged(object sender, TextChangedEventArgs e)
     {
-        if (this.NameInputTextBox.Text.Length > maxNameSymbols)
-        {
-            this.TaskNameInputMessage = "Name is too long!";
-            return;
-        }
-
-        else if (this.NameInputTextBox.Text.Length <= 0)
-        {
-            this.TaskNameInputMessage = "Name cannot be empty!";
-            return;
-        }
-
-        this.TaskNameInputMessage = String.Empty;
+        string input = this.NameInputTextBox.Text;
+        this.CanAdd = NameValidation(input);
     }
 
     private void TextInputChanged(object sender, TextChangedEventArgs e)
     {
         string taskInputText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
-        if (taskInputText.Length > maxTextSymbols)
+        string taskInputName = NameInputTextBox.Text;
+
+        this.CanAdd = TextValidation(taskInputText);
+        this.CanAdd = NameValidation(taskInputName);
+    }
+
+    private bool NameValidation(string name)
+    {
+        if (name.Length <= 0)
         {
-            this.TaskTextInputMessage = "Text is too long!";
-            return;
+            this.TaskNameInputMessage = "Name cannot be empty!";
+            return false;
         }
 
-        this.TaskTextInputMessage = String.Empty;
+        else if (name.Length > maxNameSymbols)
+        {
+            this.TaskNameInputMessage = "Name is too long!";
+            return false;
+        }
+
+        this.TaskNameInputMessage = String.Empty;
+        return true;
     }
+
+    private bool TextValidation(string text)
+    {
+        if (text.Length > maxTextSymbols)
+        {
+            this.CanAdd = false;
+            this.TaskTextInputMessage = "Text is too long!";
+            return false;
+        }
+
+        return true;
+    }
+
 }

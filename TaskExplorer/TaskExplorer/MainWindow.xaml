@@ -35,7 +35,6 @@
             <Button Click = "FinishButton_Click">
                 <Image Source="images/finished_img.png"/>
             </Button>
-            <Button Content = "User"/>
         </StackPanel>
 
         <DockPanel>
