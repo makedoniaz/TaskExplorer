@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="resources/TextBlockStyle.xaml"/>
                 <ResourceDictionary Source="resources/ListViewItemStyle.xaml"/>
                 <ResourceDictionary Source="resources/ListViewStyle.xaml"/>
+                <ResourceDictionary Source="resources/LabelStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -37,7 +38,7 @@
                 <Image Source="images/finished_img.png"/>
             </Button>
 
-            <Label Foreground = "Gray" FontSize ="13" Margin="20 0 0 0"  Content="Select all finished tasks"/>
+            <Label Style="{StaticResource FunctionLabel}" Margin="20 0 0 0"  Content="Select all finished tasks"/>
             <CheckBox Click="SelectFinished_IsEnabledChanged" Margin="0 8 0 0"/>
         </StackPanel>
 

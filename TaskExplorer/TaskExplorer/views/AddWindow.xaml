@@ -6,6 +6,16 @@
         xmlns:local="clr-namespace:TaskExplorer.views"
         mc:Ignorable="d"
         Title="AddWindow" Height="420" Width="300" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../resources/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="../resources/LabelStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <DockPanel>
 
         <StackPanel DockPanel.Dock="Bottom"
