@@ -73,13 +73,18 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void ChangeContent_RichTextBox(RichTextBox textBox, string? text)
+    private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        if (textBox == null || text == null)
-            return;
+        if (sender is Button deleteButton)
+        {
+            Task? currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
 
-        textBox.Document.Blocks.Clear();
-        textBox.AppendText(text);
+            while (currentTask != null)
+            {
+                Tasks.Remove(currentTask);
+                currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
+            }
+        }
     }
 
     private void Task_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -92,4 +97,29 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
         }
     }
+
+    private void FinishButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button finishButton)
+        {
+            Task? currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
+
+            while (currentTask != null)
+            {
+                currentTask.Status = STATUS.Done;
+                currentTask.IsSelected = false;
+                currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
+            }
+        }
+    }
+
+    private void ChangeContent_RichTextBox(RichTextBox textBox, string? text)
+    {
+        if (textBox == null || text == null)
+            return;
+
+        textBox.Document.Blocks.Clear();
+        textBox.AppendText(text);
+    }
+
 }

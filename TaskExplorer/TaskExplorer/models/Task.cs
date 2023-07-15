@@ -36,9 +36,6 @@ public class Task : INotifyPropertyChanged
         get => text;
         set
         {
-            if (value == null)
-                throw new ArgumentNullException(nameof(text));
-
             this.PropertyChangeMethod(out text, value);
         }
     }
@@ -84,5 +81,5 @@ public class Task : INotifyPropertyChanged
             this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 
-    public override string ToString() => $"{Text} - {Status} - {creationDate}";
+    public override string ToString() => $"{Name} - {Status} - {CreationDate}";
 }

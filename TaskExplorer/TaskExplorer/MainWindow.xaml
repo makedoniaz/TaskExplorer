@@ -20,13 +20,14 @@
     
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" 
-                    Orientation="Horizontal" 
+                    Orientation="Horizontal"
                     Height="40">
-            <Button Content="Add" Click="OpenAddWindow_Click"/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
+            <Button Content = "Add" Click = "OpenAddWindow_Click"/>
+            <Button Content = "Delete" Click = "DeleteButton_Click"/>
+            <Button Content = "Finish" Click = "FinishButton_Click"/>
+            <Button Content = "Import"/>
+            <Button Content = "Export"/>
+            <Button Content = "User"/>
         </StackPanel>
 
         <DockPanel>

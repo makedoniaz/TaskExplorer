@@ -39,9 +39,6 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         get => inputTaskText;
         set
         {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentNullException(nameof(inputTaskText));
-
             inputTaskText = value;
         }
     }
@@ -72,15 +69,14 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         field = value;
 
         if (this.PropertyChanged != null)
-        {
             this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        string inputTaskText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
-        this.tasks?.Add(new Task(name: inputTaskName, text: inputTaskText, status: inputTaskStatus));
+        InputTaskText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
+        Console.WriteLine(InputTaskStatus);
+        this.tasks?.Add(new Task(name: InputTaskName, text: InputTaskText, status: InputTaskStatus));
 
         this.Close();
     }

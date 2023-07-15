@@ -24,7 +24,7 @@
             <RichTextBox x:Name="TaskRichTextBox" Height="150"/>
             
             <Label Content="Status"/>
-            <ComboBox ItemsSource = "{Binding Statuses}"/>
+            <ComboBox SelectedItem="{Binding InputTaskStatus}" ItemsSource = "{Binding Statuses}"/>
         </StackPanel>
 
     </DockPanel>
