@@ -8,11 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="assets\tasks.json" />
+    <Compile Remove="assets\**" />
+    <EmbeddedResource Remove="assets\**" />
+    <None Remove="assets\**" />
+    <Page Remove="assets\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="assets\tasks.json">
+    <None Remove="images\add_img.png" />
+    <None Remove="images\delete_img.png" />
+    <None Remove="images\finished_img.png" />
+    <None Remove="json\tasks.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\finished_img.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="json\tasks.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -21,6 +37,15 @@
     <Page Update="resources\ButtonStyle.xaml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\add_img.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\delete_img.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

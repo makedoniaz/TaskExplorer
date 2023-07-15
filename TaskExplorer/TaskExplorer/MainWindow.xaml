@@ -18,15 +18,23 @@
         </ResourceDictionary>
     </Window.Resources>
     
+    
+    
+    
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" 
                     Orientation="Horizontal"
                     Height="40">
-            <Button Content = "Add" Click = "OpenAddWindow_Click"/>
-            <Button Content = "Delete" Click = "DeleteButton_Click"/>
-            <Button Content = "Finish" Click = "FinishButton_Click"/>
-            <Button Content = "Import"/>
-            <Button Content = "Export"/>
+
+            <Button Click = "OpenAddWindow_Click">
+                <Image Source="images/add_img.png"/>
+            </Button>
+            <Button Click = "DeleteButton_Click">
+                <Image Source="images/delete_img.png"/>
+            </Button>
+            <Button Click = "FinishButton_Click">
+                <Image Source="images/finished_img.png"/>
+            </Button>
             <Button Content = "User"/>
         </StackPanel>
 

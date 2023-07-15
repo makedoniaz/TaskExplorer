@@ -23,7 +23,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public ObservableCollection<Task>? Tasks { get; set; }
-    private static readonly string path = "assets\\tasks.json";
+    private static readonly string path = "json\\tasks.json";
 
     public MainWindow()
     {
@@ -56,7 +56,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private void OpenAddWindow_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button addButton)
-            new AddWindow(this.Tasks, path).ShowDialog();
+            new AddWindow(this.Tasks).ShowDialog();
     }
 
     private void SelectTask_Click(object sender, RoutedEventArgs e)

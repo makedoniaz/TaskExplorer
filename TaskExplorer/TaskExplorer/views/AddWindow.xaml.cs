@@ -18,38 +18,51 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     private readonly ObservableCollection<Task>? tasks;
-    private readonly string path;
+
+    private static int maxNameSymbols = 16;
+    private static int maxTextSymbols = 700;
 
     public ObservableCollection<STATUS> Statuses { get; set; } = new ObservableCollection<STATUS>();
 
-    private string? inputTaskName;
-    private string? inputTaskText;
-    private STATUS inputTaskStatus;
+    private STATUS taskInputStatus;
 
-    public string? InputTaskName
+    private string? taskNameInputMessage;
+    private string? taskTextInputMessage;
+    private bool canAdd;
+
+    public STATUS TaskInputStatus
     {
-        get => inputTaskName;
-        set {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentNullException(nameof(inputTaskName));
+        get => taskInputStatus;
+        set => taskInputStatus = value;
+    }
 
-            inputTaskName = value;
+
+    public string? TaskNameInputMessage
+    {
+        get => taskNameInputMessage;
+        set {
+            if (value == null)
+                throw new ArgumentNullException(nameof(taskNameInputMessage));
+
+            PropertyChangeMethod(out taskNameInputMessage, value);
         }
     }
 
-    public string? InputTaskText
+    public string? TaskTextInputMessage
     {
-        get => inputTaskText;
+        get => taskTextInputMessage;
         set
         {
-            inputTaskText = value;
+            if (value == null)
+                throw new ArgumentNullException(nameof(taskTextInputMessage));
+
+            PropertyChangeMethod(out taskTextInputMessage, value);
         }
     }
-
-    public STATUS InputTaskStatus
+    public bool CanAdd
     {
-        get => inputTaskStatus;
-        set => inputTaskStatus = value;
+        get => canAdd;
+        set => PropertyChangeMethod(out canAdd, value);
     }
 
     public AddWindow()
@@ -62,9 +75,9 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         Statuses.Add(STATUS.InProgress);
     }
 
-    public AddWindow(ObservableCollection<Task>? tasks, string path) : this()
+    public AddWindow(ObservableCollection<Task>? tasks) : this()
     {
-        this.path = path;
+        this.CanAdd = true;
         this.tasks = tasks;
     }
 
@@ -78,17 +91,48 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        InputTaskText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
-        this.tasks?.Add(new Task(name: InputTaskName, text: InputTaskText, status: InputTaskStatus));
+        string taskInputText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
+        this.tasks?.Add(new Task(name: this.NameInputTextBox.Text, text: taskInputText, status: TaskInputStatus));
+        Console.WriteLine("Aaa");
 
         this.Close();
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => this.Close();
 
-    string ConvertRichTextBoxContentsToString(RichTextBox richTextBox)
+    private string ConvertRichTextBoxContentsToString(RichTextBox richTextBox)
     {
         TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
         return textRange.Text;
+    }
+
+
+    private void NameInputChanged(object sender, TextChangedEventArgs e)
+    {
+        if (this.NameInputTextBox.Text.Length > maxNameSymbols)
+        {
+            this.TaskNameInputMessage = "Name is too long!";
+            return;
+        }
+
+        else if (this.NameInputTextBox.Text.Length <= 0)
+        {
+            this.TaskNameInputMessage = "Name cannot be empty!";
+            return;
+        }
+
+        this.TaskNameInputMessage = String.Empty;
+    }
+
+    private void TextInputChanged(object sender, TextChangedEventArgs e)
+    {
+        string taskInputText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
+        if (taskInputText.Length > maxTextSymbols)
+        {
+            this.TaskTextInputMessage = "Text is too long!";
+            return;
+        }
+
+        this.TaskTextInputMessage = String.Empty;
     }
 }

@@ -12,19 +12,21 @@
                     Orientation="Horizontal"
                     Height="40"
                     HorizontalAlignment="Right">
-            <Button Width="50" FontSize="13" Margin="5" Content="Add" Click ="AddButton_Click"/>
+            <Button Width="50" FontSize="13" Margin="5" Content="Add" Click ="AddButton_Click" IsEnabled="{Binding CanAdd}"/>
             <Button Width="50" FontSize="13" Margin="5" Content="Cancel" Click ="CancelButton_Click"/>
         </StackPanel>
 
         <StackPanel Margin="8">
             <Label Content="Name"/>
-            <TextBox Text="{Binding InputTaskName}"/>
-            
+            <TextBox x:Name ="NameInputTextBox" TextChanged="NameInputChanged"/>
+            <Label FontSize="10" Foreground="Red" Content ="{Binding TaskNameInputMessage}"/>
+
             <Label Content="Text"/>
-            <RichTextBox x:Name="TaskRichTextBox" Height="150"/>
-            
+            <RichTextBox x:Name="TaskRichTextBox" Height="150" TextChanged="TextInputChanged"/>
+            <Label Foreground="Red" Content ="{Binding TaskTextInputMessage}"/>
+
             <Label Content="Status"/>
-            <ComboBox SelectedItem="{Binding InputTaskStatus}" ItemsSource = "{Binding Statuses}"/>
+            <ComboBox SelectedItem="{Binding TaskInputStatus}" ItemsSource = "{Binding Statuses}"/>
         </StackPanel>
 
     </DockPanel>
