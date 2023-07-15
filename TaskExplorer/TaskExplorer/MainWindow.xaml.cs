@@ -22,7 +22,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<Task> Tasks { get; set; }
+    public ObservableCollection<Task>? Tasks { get; set; }
     private static readonly string path = "assets\\tasks.json";
 
     public MainWindow()
@@ -33,17 +33,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         Tasks = new ObservableCollection<Task>();
 
         this.TaskContentRichTextBox.IsEnabled = false;
+        LoadTasks(path);
+    }
 
-        //if (File.Exists(path))
-        //{
-        //    string json = File.ReadAllText(path);
-        //    Tasks = JsonSerializer.Deserialize<ObservableCollection<Task>>(json);
-        //}
-        //else
-        //{
-        //    File.Create(path);
-        //    Tasks = new ObservableCollection<Task>();
-        //}
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        base.OnClosing(e);
+
+        this.SaveTasks(path, Tasks);
     }
 
     protected void PropertyChangeMethod<T>(out T field, T value, [CallerMemberName] string propName = "")
@@ -59,7 +56,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private void OpenAddWindow_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button addButton)
-            new AddWindow(this.Tasks).ShowDialog();
+            new AddWindow(this.Tasks, path).ShowDialog();
     }
 
     private void SelectTask_Click(object sender, RoutedEventArgs e)
@@ -77,12 +74,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         if (sender is Button deleteButton)
         {
-            Task? currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
+            Task? currentTask = Tasks?.FirstOrDefault(task => task.IsSelected);
 
             while (currentTask != null)
             {
-                Tasks.Remove(currentTask);
-                currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
+                Tasks?.Remove(currentTask);
+                currentTask = Tasks?.FirstOrDefault(task => task.IsSelected);
             }
         }
     }
@@ -102,22 +99,42 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         if (sender is Button finishButton)
         {
-            Task? currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
+            Task? currentTask = Tasks?.FirstOrDefault(task => task.IsSelected);
 
             while (currentTask != null)
             {
                 currentTask.Status = STATUS.Done;
                 currentTask.IsSelected = false;
-                currentTask = Tasks.FirstOrDefault(task => task.IsSelected);
+                currentTask = Tasks?.FirstOrDefault(task => task.IsSelected);
             }
         }
     }
 
-    private void ChangeContent_RichTextBox(RichTextBox textBox, string? text)
+
+    private void LoadTasks(string path)
     {
-        if (textBox == null || text == null)
+        if (File.ReadAllText(path) == string.Empty || File.Exists(path) == false)
             return;
 
+        string json = File.ReadAllText(path);
+        Tasks = JsonSerializer.Deserialize<ObservableCollection<Task>>(json);
+    }
+
+    public void SaveTasks(string path, ObservableCollection<Task>? tasks)
+    {
+        if (File.Exists(path) == false)
+            File.Create(path);
+
+        string json = JsonSerializer.Serialize(tasks);
+        File.WriteAllText(path, json);
+    }
+
+    private void ChangeContent_RichTextBox(RichTextBox textBox, string? text)
+    {
+
+        if (textBox == null || text == null)
+            return;
+        
         textBox.Document.Blocks.Clear();
         textBox.AppendText(text);
     }

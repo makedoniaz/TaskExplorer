@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -16,6 +18,7 @@ public partial class AddWindow : Window, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     private readonly ObservableCollection<Task>? tasks;
+    private readonly string path;
 
     public ObservableCollection<STATUS> Statuses { get; set; } = new ObservableCollection<STATUS>();
 
@@ -59,8 +62,9 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         Statuses.Add(STATUS.InProgress);
     }
 
-    public AddWindow(ObservableCollection<Task> tasks) : this()
+    public AddWindow(ObservableCollection<Task>? tasks, string path) : this()
     {
+        this.path = path;
         this.tasks = tasks;
     }
 
@@ -75,7 +79,6 @@ public partial class AddWindow : Window, INotifyPropertyChanged
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
         InputTaskText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
-        Console.WriteLine(InputTaskStatus);
         this.tasks?.Add(new Task(name: InputTaskName, text: InputTaskText, status: InputTaskStatus));
 
         this.Close();
