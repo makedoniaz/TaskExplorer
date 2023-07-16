@@ -27,11 +27,11 @@
 
         <StackPanel Margin="8">
             <Label Content="Name"/>
-            <TextBox x:Name ="NameInputTextBox" TextChanged="NameInputChanged"/>
+            <TextBox x:Name ="NameInputTextBox" TextChanged="InputChanged"/>
             <Label Style="{StaticResource ErrorLabel}" Content ="{Binding TaskNameInputMessage}"/>
 
             <Label Content="Text"/>
-            <RichTextBox x:Name="TaskRichTextBox" Height="150" TextChanged="TextInputChanged"/>
+            <RichTextBox x:Name="TaskRichTextBox" Height="150" TextChanged="InputChanged"/>
             <Label Style="{StaticResource ErrorLabel}" Content ="{Binding TaskTextInputMessage}"/>
 
             <Label Content="Status"/>

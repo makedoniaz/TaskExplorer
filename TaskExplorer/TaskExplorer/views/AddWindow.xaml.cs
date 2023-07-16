@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-
+using System.Windows.Input;
 using TaskExplorer.models;
 
 namespace TaskExplorer.views;
@@ -101,20 +101,13 @@ public partial class AddWindow : Window, INotifyPropertyChanged
         return textRange.Text;
     }
 
-
-    private void NameInputChanged(object sender, TextChangedEventArgs e)
-    {
-        string input = this.NameInputTextBox.Text;
-        this.CanAdd = NameValidation(input);
-    }
-
-    private void TextInputChanged(object sender, TextChangedEventArgs e)
+    private void InputChanged(object sender, TextChangedEventArgs e)
     {
         string taskInputText = ConvertRichTextBoxContentsToString(this.TaskRichTextBox);
         string taskInputName = NameInputTextBox.Text;
 
-        this.CanAdd = TextValidation(taskInputText);
-        this.CanAdd = NameValidation(taskInputName);
+
+        EnableButton(taskInputName, taskInputText);
     }
 
     private bool NameValidation(string name)
@@ -144,7 +137,16 @@ public partial class AddWindow : Window, INotifyPropertyChanged
             return false;
         }
 
+        this.TaskTextInputMessage = String.Empty;
         return true;
+    }
+
+    private void EnableButton(string name, string text)
+    {
+        bool isTextValid = TextValidation(text);
+        bool isNameValid = NameValidation(name);
+
+        this.CanAdd = isTextValid && isNameValid;
     }
 
 }
